@@ -7,6 +7,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import exceptions.DALException;
+
 
 public class OperatorDAO implements IOperatorDAO {
 	
@@ -14,29 +16,33 @@ public class OperatorDAO implements IOperatorDAO {
 	private IOperatorDTO operator;
 	private List<OperatorDTO> operatorList = new ArrayList<OperatorDTO>();
 	
-
-	public OperatorDTO getOperator(int oprID) {
+	@Override
+	public OperatorDTO getOperator(int oprID) throws DALException {
 		
+		if(operatorList.isEmpty()) throw new DALException("Theres no Operators in the list");
+			
 		for (OperatorDTO opr : operatorList) {
 				
 			if (opr.getOprID() == oprID) {
 		
 				return opr;
 					
-			} 
-				
+			} 			
 		}
-
 		return null;
 	}
 
-	public List<OperatorDTO> getOperatorList() {
+	@Override
+	public List<OperatorDTO> getOperatorList() throws DALException {
+		
+		if(operatorList.isEmpty()) throw new DALException("Theres no Operators in the list");
 		
 		return operatorList;
 		
 	}
 	
 	// setting the Operators - only for use in program without DB
+	@Override
 	public void setOperator(int oprID, String oprName, String ini, String cpr, String password) {
 		
 		operator = new OperatorDTO(oprID, oprName, ini, cpr, password);
@@ -45,7 +51,10 @@ public class OperatorDAO implements IOperatorDAO {
 		
 	}
 
-	public void createOperator(String oprName, String ini, String cpr) {
+	@Override
+	public void createOperator(String oprName, String ini, String cpr) throws DALException {
+		
+		int oprAdded = 0;
 		
 		int oprID = generateID();
 		String password = generatePassword();
@@ -55,30 +64,39 @@ public class OperatorDAO implements IOperatorDAO {
 		if(oprID == operatorList.size()+10) {
 		
 			operatorList.add((OperatorDTO) operator);
+			oprAdded++;
 			
 		} else {
 			
 			rearrangeOprList(oprID, operator);
+			oprAdded++;
 			
 		}
-		
+		if (oprAdded == 0) throw new DALException("The Operator was not added");
 	}
 
-	public void updateOperator(OperatorDTO opr) {
+	@Override
+	public void updateOperator(OperatorDTO opr) throws DALException {
+		
+		int oprFound = 0;
 		
 		for (Iterator<OperatorDTO> oprIter = operatorList.listIterator(); oprIter.hasNext(); ) {
 		    OperatorDTO operator = oprIter.next();
 		    if (operator.getOprID() == opr.getOprID()) {
 		        oprIter.remove();
 		        createOperator(opr.getOprName(), opr.getIni(), opr.getCpr());
+		        oprFound++;
 		        
 		    }
 		    
 		}
-		
+		if (oprFound == 0) throw new DALException("No update could be made to the Operator");
 	}
 
-	public void deleteOperator(OperatorDTO opr) {
+	@Override
+	public void deleteOperator(OperatorDTO opr) throws DALException {
+		
+		int oprFound = 0;
 
 		for (Iterator<OperatorDTO> oprIter = operatorList.listIterator(); oprIter.hasNext(); ) {
 		    OperatorDTO operator = oprIter.next();
@@ -88,7 +106,7 @@ public class OperatorDAO implements IOperatorDAO {
 		    }
 		    
 		}
-		
+		if (oprFound == 0) throw new DALException("The Operator could not be deleted");
 	}
 	
 	// generate an OperatorID
@@ -263,7 +281,7 @@ public class OperatorDAO implements IOperatorDAO {
 		int counter = 10;
 			
 			/* 
-			 * 1st operatorID (admins) is 10, so the counter goes 1 up (to 11), next should be 11,
+			 * 1st operatorID (admins) is 10, so the counter goes 1 up (to 11), next operator should be 11,
 			 * if not, the new opr will be assigned on the 11th place in the tempList - as tested,
 			 * the operator will also have the ID number 11, as he gets the lowest available ID.
 			 * Last, when the operator is assigned, the rest of the List is assigned to tempList. 
@@ -291,5 +309,5 @@ public class OperatorDAO implements IOperatorDAO {
 		operatorList = tempList;
 		
 	}
-	
+
 }
