@@ -15,7 +15,8 @@ public class Main {
 		IOperatorDTO oDTO = new OperatorDTO();
 		IOperatorDAO oDAO = new OperatorDAO(oDTO);
 		IUI UI = new TUI();
-		Controller controller = new Controller(UI, oDAO, oDTO);
+		ControllerText controllerText = new ControllerText(UI);
+		Controller controller = new Controller(UI, controllerText, oDAO, oDTO);
 		
 		controller.run();
 		

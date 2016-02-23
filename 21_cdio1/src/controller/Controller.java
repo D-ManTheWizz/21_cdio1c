@@ -14,13 +14,15 @@ public class Controller {
 	private IOperatorDAO oDAO;
 	private IOperatorDTO oDTO;
 	private IUI UI;
+	private ControllerText controllerText;
 	
 	private int fixedAdmin = 10;
 	
-	public Controller(IUI UI, IOperatorDAO oDAO, IOperatorDTO oDTO) {
+	public Controller(IUI UI, ControllerText controllerText, IOperatorDAO oDAO, IOperatorDTO oDTO) {
 		this.UI = UI;
 		this.oDTO = oDTO;
 		this.oDAO = oDAO;
+		this.controllerText = controllerText;
 	}
 	
 	public void run() throws DALException {
@@ -40,47 +42,7 @@ public class Controller {
 	*/
 	private void startMenu() throws DALException {
 		
-		UI.showInput("                  .8.                    ");
-		UI.showInput("                   M.                    ");
-		UI.showInput("                  ZD                     ");
-		UI.showInput("       MMM?OMMMMMMMNMMMMMMM?ZMMM         ");
-		UI.showInput("        .?        .M         M .         ");
-		UI.showInput("       .M         .8          M          ");
-		UI.showInput("       .M.        .8          M          ");
-		UI.showInput("       DMM.       .8        .MMN.        ");
-		UI.showInput("        M         .8          I.         ");
-		UI.showInput("      . M         .8       .. ? M        ");
-		UI.showInput("        M ..      .8          ?  .       ");
-		UI.showInput("    .   M         .8       .  ?          ");
-		UI.showInput("   ..   M   $     .8      M   ?   .      ");
-		UI.showInput("        M   .     .8      .   ?          ");
-		UI.showInput("   M    M    +    .8     .    ?    ?     ");
-		UI.showInput("        M     .   .8    .     ?     .    ");
-		UI.showInput("        M         .8    .     ?     Z    ");
-		UI.showInput(" .. ..  M..   .   .8       .  ?   . .    ");
-		UI.showInput("OMMMMMMNM8Z$ODNMM .8  MMMMMMMNN8ZZ8DNMM  ");
-		UI.showInput("  MMNNDO$8DNMMM   .8   .MMNN8OZ8DNMMM    ");
-		UI.showInput("    .MDOZ8DM.     MMM      M8OZ8DZ.      ");
-		UI.showInput("             .MNNNDNNNNNM                ");
-		UI.showInput("           .MMN8OZ777ZO8NMM              ");
-		UI.showInput("            MND8Z$777$O8DNM              ");	
-		UI.showInput("                                         ");
-		UI.showInput("*************** Main Menu ***************");
-		UI.showInput("|                                       |");
-		UI.showInput("|   You now have following options:     |");
-		UI.showInput("|                                       |");
-		UI.showInput("|  1). Administrator menu.              |");
-		UI.showInput("|  2). Change your password.            |");
-		UI.showInput("|  3). Weigh a product.                 |");
-		UI.showInput("|  4). Exit.                            |");
-		UI.showInput("|                                       |");
-		UI.showInput("|  You can enter \"quit\" at any time     |");
-		UI.showInput("|  to close to program.                 |");
-		UI.showInput("|                                       |");
-		UI.showInput("|   Pick your choice.                   |");
-		UI.showInput("|                                       |");
-		UI.showInput("*****************************************");
-		UI.showInput("                                         ");
+		controllerText.setMainMenu();
 		
 		String choiceString = UI.getInput();
 		
@@ -105,13 +67,7 @@ public class Controller {
 			
 		} else {
 			
-			UI.showInput("                                         ");
-			UI.showInput("*************** Main Menu ***************");
-			UI.showInput("|                                       |");
-			UI.showInput("| You need to pick either 1, 2, 3 or 4  |");
-			UI.showInput("|                                       |");
-			UI.showInput("*****************************************");
-			UI.showInput("                                         ");
+			controllerText.setMainMenuWrongChoice();
 			
 			UI.getInput();
 			startMenu();
@@ -128,55 +84,23 @@ public class Controller {
 	*/
 	private void adminMenu() throws DALException {
 		
-		UI.showInput("                                         ");
-		UI.showInput("************** Admin Menu ***************");
-		UI.showInput("|                                       |");
-		UI.showInput("|   Please enter your admin-ID          |");
-		UI.showInput("|                                       |");
-		UI.showInput("*****************************************");
-		UI.showInput("                                         ");
+		controllerText.setAdminMenuAskID();
 		
 		int oprID = Integer.parseInt(UI.getInput());
 		
-		UI.showInput("                                         ");
-		UI.showInput("************** Admin Menu ***************");
-		UI.showInput("|                                       |");
-		UI.showInput("|   Please enter your password          |");
-		UI.showInput("|                                       |");
-		UI.showInput("*****************************************");
-		UI.showInput("                                         ");
+		controllerText.setAdminMenuAskPass();
 		
 		String password = UI.getInput();
 		
 		// validating the password (and prefixed ID)
 		if (validatePassword(oprID, password) == true && oprID == fixedAdmin) {
 			
-			UI.showInput("                                         ");
-			UI.showInput("************** Admin Menu ***************");
-			UI.showInput("|                                       |");
-			UI.showInput("|   You now have following options:     |");
-			UI.showInput("|                                       |");
-			UI.showInput("|  1). Create new operator.             |");
-			UI.showInput("|  2). Change an Operators info.        |");
-			UI.showInput("|  3). Delete an Operator.              |");
-			UI.showInput("|  4). Exit.                            |");
-			UI.showInput("|                                       |");
-			UI.showInput("|   Pick your choice.                   |");
-			UI.showInput("|                                       |");
-			UI.showInput("*****************************************");
-			UI.showInput("                                         ");
+			controllerText.setAdminMenu();
 			
 		} else {
 			
 			// Alternative flow Use case 2
-			UI.showInput("                                         ");
-			UI.showInput("************** Admin Menu ***************");
-			UI.showInput("|                                       |");
-			UI.showInput("|   You have entered a wrong adminID    |");
-			UI.showInput("|   or a wrong password.                |");
-			UI.showInput("|                                       |");
-			UI.showInput("*****************************************");
-			UI.showInput("                                         ");
+			controllerText.setAdminMenuWrongID();
 			
 			UI.getInput();
 			startMenu();
@@ -209,13 +133,7 @@ public class Controller {
 			
 		} else {
 			
-			UI.showInput("                                         ");
-			UI.showInput("************** Admin Menu ***************");
-			UI.showInput("|                                       |");
-			UI.showInput("| You need to pick either 1, 2, 3 or 4  |");
-			UI.showInput("|                                       |");
-			UI.showInput("*****************************************");
-			UI.showInput("                                         ");
+			controllerText.setAdminMenuWrongChoice();
 			
 			UI.getInput();
 			adminMenu();
@@ -250,33 +168,15 @@ public class Controller {
 	 */
 	private void createOperator() throws DALException {
 		
-		UI.showInput("                                         ");
-		UI.showInput("****** Add Operator to the system *******");
-		UI.showInput("|                                       |");
-		UI.showInput("| Please enter the Operators first name |");
-		UI.showInput("|                                       |");
-		UI.showInput("*****************************************");
-		UI.showInput("                                         ");
+		controllerText.setAddOperatorAskFirstName();
 		
 		String oprFirstName = UI.getInput();
 		
-		UI.showInput("                                         ");
-		UI.showInput("****** Add Operator to the system *******");
-		UI.showInput("|                                       |");
-		UI.showInput("|  Please enter the Oprators last name  |");
-		UI.showInput("|                                       |");
-		UI.showInput("*****************************************");
-		UI.showInput("                                         ");
+		controllerText.setAddOperatorAskLastName();
 		
 		String oprLastName = UI.getInput();	
 		
-		UI.showInput("                                         ");
-		UI.showInput("****** Add Operator to the system *******");
-		UI.showInput("|                                       |");
-		UI.showInput("|    Please enter the Oprators cpr.     |");
-		UI.showInput("|                                       |");
-		UI.showInput("*****************************************");
-		UI.showInput("                                         ");
+		controllerText.setAddOperatorAskCpr();
 		
 		String oprCpr = UI.getInput();
 		
@@ -292,15 +192,7 @@ public class Controller {
 		    
 		    if (operator.getCpr().contains(oprCpr)) {
 		        
-		    	UI.showInput("                                         ");
-				UI.showInput("****** Add Operator to the system *******");
-				UI.showInput("|                                       |");
-				UI.showInput("| You have entered a cpr that already   |");
-				UI.showInput("| exist in the system. Press enter      |");
-				UI.showInput("| to return to the Admin Menu           |");
-				UI.showInput("|                                       |");
-				UI.showInput("*****************************************");
-				UI.showInput("                                         ");
+		    	controllerText.setAddOperatorCprExist();
 				
 				UI.getInput();
 				adminMenu();
@@ -350,15 +242,7 @@ public class Controller {
 					
 					oDAO.deleteOperator(oDAO.getOperator(operatorPassID.getOprID()));
 					
-					UI.showInput("                                         ");
-					UI.showInput("****** Add Operator to the system *******");
-					UI.showInput("|                                       |");
-					UI.showInput("| You have not entered \"yes\" and the    |");
-					UI.showInput("| Operator will not be added. Press     |");
-					UI.showInput("| enter to return to the Admin Menu     |");
-					UI.showInput("|                                       |");
-					UI.showInput("*****************************************");
-					UI.showInput("                                         ");
+					controllerText.setAddOperatorNotValidated();
 					
 					UI.getInput();
 					adminMenu();
@@ -371,19 +255,7 @@ public class Controller {
 	// if the admin choose to change some oprInfo, he will be asked what info to change
 	private void changeOprInfo() throws DALException {
 		
-		UI.showInput("                                         ");
-		UI.showInput("********* Change Operator-info **********");
-		UI.showInput("|                                       |");
-		UI.showInput("|   You now have following options:     |");
-		UI.showInput("|                                       |");
-		UI.showInput("|  1). Change an Operators Name.        |");
-		UI.showInput("|  2). Change an Operators cpr.         |");
-		UI.showInput("|  3). Exit.                            |");
-		UI.showInput("|                                       |");
-		UI.showInput("|   Pick your choice.                   |");
-		UI.showInput("|                                       |");
-		UI.showInput("*****************************************");
-		UI.showInput("                                         ");	
+		controllerText.setChangeOperatorMenu();	
 
 		String choiceString = UI.getInput();
 		
@@ -403,13 +275,7 @@ public class Controller {
 			
 		} else {
 			
-			UI.showInput("                                         ");
-			UI.showInput("********* Change Operator-info **********");
-			UI.showInput("|                                       |");
-			UI.showInput("| You need to pick either 1, 2 or 3     |");
-			UI.showInput("|                                       |");
-			UI.showInput("*****************************************");
-			UI.showInput("                                         ");
+			controllerText.setChangeOperatorMenuWrongChoice();
 			
 			UI.getInput();
 			changeOprInfo();
@@ -423,25 +289,13 @@ public class Controller {
 	*/
 	private void changeOprName() throws DALException {
 		
-		UI.showInput("                                         ");
-		UI.showInput("********* Change Operator-info **********");
-		UI.showInput("|                                       |");
-		UI.showInput("|   Please enter the Operators ID.      |");
-		UI.showInput("|                                       |");
-		UI.showInput("*****************************************");
-		UI.showInput("                                         ");
+		controllerText.setChangeOperatorNameGetId();
 
 		oDTO = oDAO.getOperator(Integer.parseInt(UI.getInput()));
 		
 		if(oDTO == null) {
 			
-			UI.showInput("                                         ");
-			UI.showInput("********* Change Operator-info **********");
-			UI.showInput("|                                       |");
-			UI.showInput("|  There is no Operator with that ID.   |");
-			UI.showInput("|                                       |");
-			UI.showInput("*****************************************");
-			UI.showInput("                                         ");
+			controllerText.setChangeOperatorNameWrongId();
 			
 			UI.getInput();
 			adminMenu();
@@ -487,15 +341,7 @@ public class Controller {
 			oDTO.setOprName(oldName);
 			oDAO.updateOperator((OperatorDTO) oDTO); 
 			
-			UI.showInput("                                         ");
-			UI.showInput("********* Change Operator-info **********");
-			UI.showInput("|                                       |");
-			UI.showInput("| You have not entered \"yes\" and the    |");
-			UI.showInput("| Operator will not be changed. Press   |");
-			UI.showInput("| enter to return to the Admin Menu     |");
-			UI.showInput("|                                       |");
-			UI.showInput("*****************************************");
-			UI.showInput("                                         ");
+			controllerText.setChangeOperatorNameNotValidated();
 			
 			UI.getInput();
 			adminMenu();
@@ -509,25 +355,13 @@ public class Controller {
 	*/
 	private void changeOprCpr() throws DALException {
 		
-		UI.showInput("                                         ");
-		UI.showInput("********* Change Operator-info **********");
-		UI.showInput("|                                       |");
-		UI.showInput("|   Please enter the Operators ID.      |");
-		UI.showInput("|                                       |");
-		UI.showInput("*****************************************");
-		UI.showInput("                                         ");
+		controllerText.setChangeOperatorCprGetId();
 
 		oDTO = oDAO.getOperator(Integer.parseInt(UI.getInput()));
 		
 		if(oDTO == null) {
 			
-			UI.showInput("                                         ");
-			UI.showInput("********* Change Operator-info **********");
-			UI.showInput("|                                       |");
-			UI.showInput("|  There is no Operator with that ID.   |");
-			UI.showInput("|                                       |");
-			UI.showInput("*****************************************");
-			UI.showInput("                                         ");
+			controllerText.setChangeOperatorCprWrongId();
 			
 			UI.getInput();
 			adminMenu();
@@ -574,15 +408,7 @@ public class Controller {
 			oDTO.setOprName(oldCpr);
 			oDAO.updateOperator((OperatorDTO) oDTO); 
 			
-			UI.showInput("                                         ");
-			UI.showInput("********* Change Operator-info **********");
-			UI.showInput("|                                       |");
-			UI.showInput("| You have not entered \"yes\" and the    |");
-			UI.showInput("| Operator will not be changed. Press   |");
-			UI.showInput("| enter to return to the Admin Menu     |");
-			UI.showInput("|                                       |");
-			UI.showInput("*****************************************");
-			UI.showInput("                                         ");
+			controllerText.setChangeOperatorCprNotValidated();
 			
 			UI.getInput();
 			adminMenu();
@@ -593,25 +419,13 @@ public class Controller {
 	// deleting an Operator containing the ID the admin provides, confirming the deletion.
 	private void deleteOprInfo() throws DALException {
 		
-		UI.showInput("                                         ");
-		UI.showInput("********* Delete Operator-info **********");
-		UI.showInput("|                                       |");
-		UI.showInput("|   Please enter the Operators ID.      |");
-		UI.showInput("|                                       |");
-		UI.showInput("*****************************************");
-		UI.showInput("                                         ");
+		controllerText.setDeleteOperatorAskID();
 
 		oDTO = oDAO.getOperator(Integer.parseInt(UI.getInput()));
 		
 		if(oDTO == null) {
 			
-			UI.showInput("                                         ");
-			UI.showInput("********* Delete Operator-info **********");
-			UI.showInput("|                                       |");
-			UI.showInput("|  There is no Operator with that ID.   |");
-			UI.showInput("|                                       |");
-			UI.showInput("*****************************************");
-			UI.showInput("                                         ");
+			controllerText.setDeleteOperatorWrongID();
 			
 			UI.getInput();
 			adminMenu();
@@ -639,30 +453,14 @@ public class Controller {
 			
 			oDAO.deleteOperator((OperatorDTO) oDTO); 
 			
-			UI.showInput("                                         ");
-			UI.showInput("********* Delete Operator-info **********");
-			UI.showInput("|                                       |");
-			UI.showInput("| You have entered \"yes\" and the        |");
-			UI.showInput("| Operator is deleted. Press enter      |");
-			UI.showInput("| to return to the Admin Menu           |");
-			UI.showInput("|                                       |");
-			UI.showInput("*****************************************");
-			UI.showInput("                                         ");
+			controllerText.setDeleteOperatorValidated();
 			
 			UI.getInput();
 			adminMenu();
 			
 		} else {
 			
-			UI.showInput("                                         ");
-			UI.showInput("********* Delete Operator-info **********");
-			UI.showInput("|                                       |");
-			UI.showInput("| You have not entered \"yes\" and the    |");
-			UI.showInput("| Operator will not be deleted. Press   |");
-			UI.showInput("| enter to return to the Admin Menu     |");
-			UI.showInput("|                                       |");
-			UI.showInput("*****************************************");
-			UI.showInput("                                         ");
+			controllerText.setDeleteOperatorNotValidated();
 			
 			UI.getInput();
 			adminMenu();
@@ -677,43 +475,19 @@ public class Controller {
 	*/
 	private void changePassword() throws DALException {
 		
-		UI.showInput("                                         ");
-		UI.showInput("*********** Change password *************");
-		UI.showInput("|                                       |");
-		UI.showInput("|   Please enter your Operator-ID       |");
-		UI.showInput("|                                       |");
-		UI.showInput("*****************************************");
-		UI.showInput("                                         ");
+		controllerText.setChangePassAskID();
 		
 		int oprID = Integer.parseInt(UI.getInput());
 		
-		UI.showInput("                                         ");
-		UI.showInput("*********** Change password *************");
-		UI.showInput("|                                       |");
-		UI.showInput("|   Please enter your old password      |");
-		UI.showInput("|                                       |");
-		UI.showInput("*****************************************");
-		UI.showInput("                                         ");
+		controllerText.setChangePassAskOldPass();
 		
 		String password = UI.getInput();
 		
-		UI.showInput("                                         ");
-		UI.showInput("*********** Change password *************");
-		UI.showInput("|                                       |");
-		UI.showInput("|   Please enter your new password      |");
-		UI.showInput("|                                       |");
-		UI.showInput("*****************************************");
-		UI.showInput("                                         ");
+		controllerText.setChangePassAskNewPass();
 		
 		String newPassword1 = UI.getInput();
 		
-		UI.showInput("                                         ");
-		UI.showInput("*********** Change password *************");
-		UI.showInput("|                                       |");
-		UI.showInput("| Please enter your new password again  |");
-		UI.showInput("|                                       |");
-		UI.showInput("*****************************************");
-		UI.showInput("                                         ");
+		controllerText.setChangePassAskNewPassAgain();
 		
 		String newPassword2 = UI.getInput();
 		
@@ -727,30 +501,14 @@ public class Controller {
 				oDTO.setPassword(newPassword1);
 				oDAO.updateOperator((OperatorDTO) oDTO);
 				
-				UI.showInput("                                         ");
-				UI.showInput("*********** Change password *************");
-				UI.showInput("|                                       |");
-				UI.showInput("|   You have changed your password.     |");
-				UI.showInput("|   Press enter to return to the        |");
-				UI.showInput("|   Main Menu                           |");
-				UI.showInput("|                                       |");
-				UI.showInput("*****************************************");
-				UI.showInput("                                         ");
+				controllerText.setChangePassValidated();
 				
 				UI.getInput();
 				startMenu();
 
 			} else {
 				
-				UI.showInput("                                         ");
-				UI.showInput("*********** Change password *************");
-				UI.showInput("|                                       |");
-				UI.showInput("|   You did not enter the same          |");
-				UI.showInput("|   password twice.                     |");
-				UI.showInput("|   Press enter to try again.           |");
-				UI.showInput("|                                       |");
-				UI.showInput("*****************************************");
-				UI.showInput("                                         ");
+				controllerText.setChangePassNotValidated();
 				
 				UI.getInput();
 				changePassword();
@@ -760,14 +518,7 @@ public class Controller {
 		} else {
 			
 			// Alternative flow Use case 6
-			UI.showInput("                                         ");
-			UI.showInput("*********** Change password *************");
-			UI.showInput("|                                       |");
-			UI.showInput("| You have entered a wrong Operator-ID  |");
-			UI.showInput("| or a wrong password.                  |");
-			UI.showInput("|                                       |");
-			UI.showInput("*****************************************");
-			UI.showInput("                                         ");
+			controllerText.setChangePassWrongID();
 			
 			UI.getInput();
 			startMenu();
@@ -781,45 +532,21 @@ public class Controller {
 	*/
 	private void startWeight() throws DALException {
 		
-		UI.showInput("                                         ");
-		UI.showInput("************** Weight Menu **************");
-		UI.showInput("|                                       |");
-		UI.showInput("|     Please enter your Operator-ID     |");
-		UI.showInput("|                                       |");
-		UI.showInput("*****************************************");
-		UI.showInput("                                         ");
+		controllerText.setWeightAskID();
 		
 		int oprID = Integer.parseInt(UI.getInput());
 		
-		UI.showInput("                                         ");
-		UI.showInput("************** Weight Menu **************");
-		UI.showInput("|                                       |");
-		UI.showInput("|     Please enter your password        |");
-		UI.showInput("|                                       |");
-		UI.showInput("*****************************************");
-		UI.showInput("                                         ");
+		controllerText.setWeightAskPass();
 		
 		String password = UI.getInput();
 		
 		if (validatePassword(oprID, password) == true) {
 			
-			UI.showInput("                                         ");
-			UI.showInput("************** Weight Menu **************");
-			UI.showInput("|                                       |");
-			UI.showInput("|       Please enter TARE-weight        |");
-			UI.showInput("|                                       |");
-			UI.showInput("*****************************************");
-			UI.showInput("                                         ");
+			controllerText.setWeightAskTare();
 			
 			double tareWeight = Integer.parseInt(UI.getInput());
 			
-			UI.showInput("                                         ");
-			UI.showInput("************** Weight Menu **************");
-			UI.showInput("|                                       |");
-			UI.showInput("|       Please enter Gross-weight       |");
-			UI.showInput("|                                       |");
-			UI.showInput("*****************************************");
-			UI.showInput("                                         ");
+			controllerText.setWeightAskGross();
 			
 			double grossWeight = Integer.parseInt(UI.getInput());
 			double netWeight = round(grossWeight-tareWeight);
@@ -841,14 +568,7 @@ public class Controller {
 			
 		} else {
 			
-			UI.showInput("                                         ");
-			UI.showInput("************** Weight Menu **************");
-			UI.showInput("|                                       |");
-			UI.showInput("|   You have entered a wrong ID         |");
-			UI.showInput("|   or a wrong password.                |");
-			UI.showInput("|                                       |");
-			UI.showInput("*****************************************");
-			UI.showInput("                                         ");
+			controllerText.setWeightWrongID();
 			
 			UI.getInput();
 			startMenu();
