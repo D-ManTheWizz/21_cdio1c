@@ -79,21 +79,40 @@ public class Controller {
 		UI.showInput("*****************************************");
 		UI.showInput("                                         ");
 		
-		int choice = Integer.parseInt(UI.getInput());
+		String choiceString = UI.getInput();
 		
-		switch (choice) {
-		
-			// Use case 2
-			case 1: 	adminMenu();
-						
-			// Use case 6+7
-			case 2:		changePassword();
-		
-			// Use case 6+8
-			case 3:		startWeight();
+		if(choiceString.equals(1) || choiceString.equals(2) || choiceString.equals(3) || choiceString.equals(4)) {
 			
-			case 4:		UI.endProgram();
-	
+			int choice = Integer.parseInt(choiceString);
+			
+			switch (choice) {
+			
+				// Use case 2
+				case 1: 	adminMenu();
+							
+				// Use case 6+7
+				case 2:		changePassword();
+			
+				// Use case 6+8
+				case 3:		startWeight();
+				
+				case 4:		UI.endProgram();
+		
+			}
+			
+		} else {
+			
+			UI.showInput("                                         ");
+			UI.showInput("*************** Main Menu ***************");
+			UI.showInput("|                                       |");
+			UI.showInput("| You need to pick either 1, 2, 3 or 4  |");
+			UI.showInput("|                                       |");
+			UI.showInput("*****************************************");
+			UI.showInput("                                         ");
+			
+			UI.getInput();
+			startMenu();
+			
 		}
 	}
 	
@@ -162,23 +181,43 @@ public class Controller {
 		}
 	
 		// listen for input and running the corresponding case
-		int choice = Integer.parseInt(UI.getInput());
+		String choiceString = UI.getInput();
 		
-		switch (choice) {
-		
-			// Use case 3
-			case 1: 	createOperator();
+		if(choiceString.equals(1) || choiceString.equals(2) || choiceString.equals(3) || choiceString.equals(4)) {
 			
-			// Use case 4
-			case 2:		changeOprInfo();
-
-			// Use case 5
-			case 3:		deleteOprInfo();
-						
-			case 4:		startMenu();
+			
 		
+			int choice = Integer.parseInt(choiceString);
+			
+			switch (choice) {
+			
+				// Use case 3
+				case 1: 	createOperator();
+				
+				// Use case 4
+				case 2:		changeOprInfo();
+	
+				// Use case 5
+				case 3:		deleteOprInfo();
+							
+				case 4:		startMenu();
+			
+			}
+			
+		} else {
+			
+			UI.showInput("                                         ");
+			UI.showInput("************** Admin Menu ***************");
+			UI.showInput("|                                       |");
+			UI.showInput("| You need to pick either 1, 2, 3 or 4  |");
+			UI.showInput("|                                       |");
+			UI.showInput("*****************************************");
+			UI.showInput("                                         ");
+			
+			UI.getInput();
+			adminMenu();
+			
 		}
-		
 	}
 	
 	/* 
@@ -342,16 +381,36 @@ public class Controller {
 		UI.showInput("|                                       |");
 		UI.showInput("*****************************************");
 		UI.showInput("                                         ");	
-		int choice = Integer.parseInt(UI.getInput());
+
+		String choiceString = UI.getInput();
 		
-		switch (choice) {
-		
-			case 1: 	changeOprName(); // prompt for valid ID
+		if(choiceString.equals(1) || choiceString.equals(2) || choiceString.equals(3)) {
+
+			int choice = Integer.parseInt(choiceString);
 			
-			case 2:		changeOprCpr(); // prompt for valid ID
+			switch (choice) {
 			
-			case 3:		adminMenu();
-		
+				case 1: 	changeOprName(); // prompt for valid ID
+				
+				case 2:		changeOprCpr(); // prompt for valid ID
+				
+				case 3:		adminMenu();
+			
+			}
+			
+		} else {
+			
+			UI.showInput("                                         ");
+			UI.showInput("********* Change Operator-info **********");
+			UI.showInput("|                                       |");
+			UI.showInput("| You need to pick either 1, 2 or 3     |");
+			UI.showInput("|                                       |");
+			UI.showInput("*****************************************");
+			UI.showInput("                                         ");
+			
+			UI.getInput();
+			changeOprInfo();
+			
 		}
 	}
 	
@@ -544,7 +603,7 @@ public class Controller {
 		if(oDTO == null) {
 			
 			UI.showInput("                                         ");
-			UI.showInput("********* Change Operator-info **********");
+			UI.showInput("********* Delete Operator-info **********");
 			UI.showInput("|                                       |");
 			UI.showInput("|  There is no Operator with that ID.   |");
 			UI.showInput("|                                       |");

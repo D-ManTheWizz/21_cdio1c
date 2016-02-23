@@ -90,19 +90,19 @@ public class OperatorDAO implements IOperatorDAO {
 	@Override
 	public void updateOperator(OperatorDTO opr) throws DALException {
 		
-		int oprFound = 0;
+		int oprCreated = 0;
 		
 		for (Iterator<OperatorDTO> oprIter = operatorList.listIterator(); oprIter.hasNext(); ) {
 		    OperatorDTO operator = oprIter.next();
 		    if (operator.getOprID() == opr.getOprID()) {
 		        oprIter.remove();
 		        createOperator(opr.getOprName(), opr.getIni(), opr.getCpr());
-		        oprFound++;
+		        oprCreated++;
 		        
 		    }
 		    
 		}
-		if (oprFound == 0) throw new DALException("No update could be made to the Operator");
+		if (oprCreated == 0) throw new DALException("No update could be made to the Operator");
 	}
 
 	/* 
@@ -112,18 +112,18 @@ public class OperatorDAO implements IOperatorDAO {
 	@Override
 	public void deleteOperator(OperatorDTO opr) throws DALException {
 		
-		int oprFound = 0;
+		int oprDeleted = 0;
 
 		for (Iterator<OperatorDTO> oprIter = operatorList.listIterator(); oprIter.hasNext(); ) {
 		    OperatorDTO operator = oprIter.next();
 		    if (operator == opr) {
 		        oprIter.remove();
-		        oprFound++;
+		        oprDeleted++;
 		        
 		    }
 		    
 		}
-		if (oprFound == 0) throw new DALException("The Operator could not be deleted");
+		if (oprDeleted == 0) throw new DALException("The Operator could not be deleted");
 	}
 	
 	/* 
