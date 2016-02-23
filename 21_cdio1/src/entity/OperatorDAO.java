@@ -16,6 +16,10 @@ public class OperatorDAO implements IOperatorDAO {
 	private IOperatorDTO operator;
 	private List<OperatorDTO> operatorList = new ArrayList<OperatorDTO>();
 	
+	public OperatorDAO(IOperatorDTO operator) {
+		this.operator = operator;
+	}
+
 	// iterate through the list of Operators and return the Operator with the ID provided
 	@Override
 	public OperatorDTO getOperator(int oprID) throws DALException {

@@ -9,7 +9,11 @@ public class OperatorDTO implements IOperatorDTO {
 	String cpr;
 	String password;
 	
-		
+	
+	public OperatorDTO() {
+
+	}
+	
 	public OperatorDTO(int oprID, String oprName, String ini, String cpr, String password) {
 
 		this.oprID = oprID;

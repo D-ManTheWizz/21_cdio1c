@@ -4,21 +4,24 @@ package controller;
 import java.util.Iterator;
 
 import boundary.IUI;
-import boundary.TUI;
 import entity.IOperatorDAO;
 import entity.IOperatorDTO;
-import entity.OperatorDAO;
 import entity.OperatorDTO;
 import exceptions.DALException;
 
 
 public class Controller {
-	private IOperatorDAO oDAO = new OperatorDAO();
+	private IOperatorDAO oDAO;
 	private IOperatorDTO oDTO;
-	private IUI UI = new TUI();
+	private IUI UI;
 	
 	private int fixedAdmin = 10;
 	
+	public Controller(IUI UI, IOperatorDAO oDAO, IOperatorDTO oDTO) {
+		this.UI = UI;
+		this.oDTO = oDTO;
+		this.oDAO = oDAO;
+	}
 	
 	public void run() throws DALException {
 		
@@ -81,7 +84,7 @@ public class Controller {
 		
 		String choiceString = UI.getInput();
 		
-		if(choiceString.equals(1) || choiceString.equals(2) || choiceString.equals(3) || choiceString.equals(4)) {
+		if(choiceString.equals("1") || choiceString.equals("2") || choiceString.equals("3") || choiceString.equals("4")) {
 			
 			int choice = Integer.parseInt(choiceString);
 			
@@ -183,7 +186,7 @@ public class Controller {
 		// listen for input and running the corresponding case
 		String choiceString = UI.getInput();
 		
-		if(choiceString.equals(1) || choiceString.equals(2) || choiceString.equals(3) || choiceString.equals(4)) {
+		if(choiceString.equals("1") || choiceString.equals("2") || choiceString.equals("3") || choiceString.equals("4")) {
 			
 			
 		
@@ -384,7 +387,7 @@ public class Controller {
 
 		String choiceString = UI.getInput();
 		
-		if(choiceString.equals(1) || choiceString.equals(2) || choiceString.equals(3)) {
+		if(choiceString.equals("1") || choiceString.equals("2") || choiceString.equals("3")) {
 
 			int choice = Integer.parseInt(choiceString);
 			
