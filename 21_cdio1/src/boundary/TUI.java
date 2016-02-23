@@ -12,7 +12,9 @@ public class TUI implements IUI {
 		scanner = new Scanner(System.in);
 		String catched = scanner.nextLine();
 		
-		if(scanner.nextLine().equals("quit")); endProgram();
+		if(catched.equals("quit")) {
+			endProgram();
+		}
 		
 		return catched;
 	}

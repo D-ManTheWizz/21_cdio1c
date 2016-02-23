@@ -85,7 +85,7 @@ public class Controller {
 		
 			// Use case 2
 			case 1: 	adminMenu();
-			
+						
 			// Use case 6+7
 			case 2:		changePassword();
 		
