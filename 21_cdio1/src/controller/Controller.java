@@ -541,6 +541,21 @@ public class Controller {
 
 		oDTO = oDAO.getOperator(Integer.parseInt(UI.getInput()));
 		
+		if(oDTO == null) {
+			
+			UI.showInput("                                         ");
+			UI.showInput("********* Change Operator-info **********");
+			UI.showInput("|                                       |");
+			UI.showInput("|  There is no Operator with that ID.   |");
+			UI.showInput("|                                       |");
+			UI.showInput("*****************************************");
+			UI.showInput("                                         ");
+			
+			UI.getInput();
+			adminMenu();
+			
+		}
+		
 		// showing the Operator to be deleted
 		UI.showInput("                                         ");
 		UI.showInput("********* Delete Operator-info **********");
