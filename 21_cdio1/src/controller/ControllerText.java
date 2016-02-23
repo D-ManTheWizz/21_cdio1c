@@ -47,9 +47,9 @@ public class ControllerText {
 		UI.showInput("|  4). Exit.                            |");
 		UI.showInput("|                                       |");
 		UI.showInput("|  You can enter \"quit\" at any time     |");
-		UI.showInput("|  to close to program.                 |");
+		UI.showInput("|  to close the program.                |");
 		UI.showInput("|                                       |");
-		UI.showInput("|   Pick your choice.                   |");
+		UI.showInput("|  Pick your choice.                    |");
 		UI.showInput("|                                       |");
 		UI.showInput("*****************************************");
 		UI.showInput("                                         ");

@@ -2,7 +2,10 @@ package boundary;
 
 import java.util.Scanner;
 
+import controller.Controller;
+
 public class TUI implements IUI {
+	Controller controller = new Controller();
 
 	private Scanner scanner;
 

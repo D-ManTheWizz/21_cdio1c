@@ -25,6 +25,10 @@ public class Controller {
 		this.controllerText = controllerText;
 	}
 	
+	public Controller() {
+		
+	}
+
 	public void run() throws DALException {
 		
 		oDAO.setOperator(10, "Admin Jensen", "AdJe", "123456-1234", "1234Pass");
@@ -40,7 +44,7 @@ public class Controller {
 	 * startMenu ask TUI to print a menu containing 4 choices the user can choose
 	 * then it ask the TUI to get the input from the user, to switch through the 4 different cases
 	*/
-	private void startMenu() throws DALException {
+	public void startMenu() throws DALException {
 		
 		controllerText.setMainMenu();
 		
