@@ -1,9 +1,5 @@
 package controller;
 
-
-import entity.IOperatorDAO;
-import entity.OperatorDAO;
-import entity.OperatorDTO;
 import exceptions.DALException;
 
 public class Main {

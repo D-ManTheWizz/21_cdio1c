@@ -118,6 +118,7 @@ public class OperatorDAO implements IOperatorDAO {
 		    OperatorDTO operator = oprIter.next();
 		    if (operator == opr) {
 		        oprIter.remove();
+		        oprFound++;
 		        
 		    }
 		    
