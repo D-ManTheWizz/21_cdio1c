@@ -371,6 +371,21 @@ public class Controller {
 
 		oDTO = oDAO.getOperator(Integer.parseInt(UI.getInput()));
 		
+		if(oDTO == null) {
+			
+			UI.showInput("                                         ");
+			UI.showInput("********* Change Operator-info **********");
+			UI.showInput("|                                       |");
+			UI.showInput("|  There is no Operator with that ID.   |");
+			UI.showInput("|                                       |");
+			UI.showInput("*****************************************");
+			UI.showInput("                                         ");
+			
+			UI.getInput();
+			adminMenu();
+			
+		}
+		
 		UI.showInput("                                         ");
 		UI.showInput("********* Change Operator-info **********");
 		UI.showInput("|                                       |");
@@ -441,6 +456,21 @@ public class Controller {
 		UI.showInput("                                         ");
 
 		oDTO = oDAO.getOperator(Integer.parseInt(UI.getInput()));
+		
+		if(oDTO == null) {
+			
+			UI.showInput("                                         ");
+			UI.showInput("********* Change Operator-info **********");
+			UI.showInput("|                                       |");
+			UI.showInput("|  There is no Operator with that ID.   |");
+			UI.showInput("|                                       |");
+			UI.showInput("*****************************************");
+			UI.showInput("                                         ");
+			
+			UI.getInput();
+			adminMenu();
+			
+		}	
 		
 		UI.showInput("                                         ");
 		UI.showInput("********* Change Operator-info **********");
