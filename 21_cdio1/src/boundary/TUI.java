@@ -12,6 +12,8 @@ public class TUI implements IUI {
 		scanner = new Scanner(System.in);
 		String catched = scanner.nextLine();
 		
+		if(scanner.nextLine().equals("quit")); endProgram();
+		
 		return catched;
 	}
 
@@ -19,6 +21,11 @@ public class TUI implements IUI {
 	@Override
 	public void showInput(String msg) {
 		System.out.println(msg);
+	}
+	
+	public void endProgram() {
+		scanner.close();
+		System.exit(0);
 	}
 }
 

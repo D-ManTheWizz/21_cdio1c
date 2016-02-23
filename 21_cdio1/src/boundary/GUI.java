@@ -14,4 +14,10 @@ public class GUI implements IUI {
 		
 	}
 
+	@Override
+	public void endProgram() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

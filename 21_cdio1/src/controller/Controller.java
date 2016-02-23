@@ -71,6 +71,9 @@ public class Controller {
 		UI.showInput("|  3). Weigh a product.                 |");
 		UI.showInput("|  4). Exit.                            |");
 		UI.showInput("|                                       |");
+		UI.showInput("|  You can enter \"quit\" at any time     |");
+		UI.showInput("|  to close to program.                 |");
+		UI.showInput("|                                       |");
 		UI.showInput("|   Pick your choice.                   |");
 		UI.showInput("|                                       |");
 		UI.showInput("*****************************************");
@@ -89,7 +92,7 @@ public class Controller {
 			// Use case 6+8
 			case 3:		startWeight();
 			
-			case 4:		System.exit(0);
+			case 4:		UI.endProgram();
 	
 		}
 	}
@@ -719,13 +722,13 @@ public class Controller {
 			UI.showInput("|                                       |");
 			UI.showInput("|     Your net-weight is:  " + netWeight + "        |");
 			UI.showInput("|                                       |");
-			UI.showInput("| Enter \"quit\" to exit to the mani menu |");
+			UI.showInput("| Enter \"exit\" to exit to the mani menu |");
 			UI.showInput("|                                       |");
 			UI.showInput("*****************************************");
 			UI.showInput("                                         ");
 			
 			
-			if(UI.getInput().equals("quit")) startMenu();
+			if(UI.getInput().equals("exit")) startMenu();
 			
 			startWeight();
 			
