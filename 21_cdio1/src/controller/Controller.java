@@ -15,8 +15,7 @@ public class Controller {
 	private IOperatorDTO oDTO;
 	private IUI UI;
 	private ControllerText controllerText;
-	boolean trancient;
-	
+
 	private int fixedAdmin = 10;
 	
 	public Controller(IUI UI, ControllerText controllerText, IOperatorDAO oDAO, IOperatorDTO oDTO) {
@@ -31,16 +30,17 @@ public class Controller {
 	}
 
 	public void run() throws DALException {
-		if(trancient){
+		
 		oDAO.setOperator(10, "Admin Jensen", "AdJe", "123456-1234", "1234Pass");
 		oDAO.setOperator(11, "Operator Jensen", "OpJe", "234567-2345", "2345Pass");
 		oDAO.setOperator(12, "Svend Nielsen", "SvNi", "345678-3456", "3456Pass");
 		oDAO.setOperator(13, "Hans Christensen", "HaCh", "456789-4567", "4567Pass");
 		}
-		if(!trancient)
-		startMenu();
+
+
 		
-	}
+		
+	
 	
 	/* Use case 1
 	 * startMenu ask TUI to print a menu containing 4 choices the user can choose
